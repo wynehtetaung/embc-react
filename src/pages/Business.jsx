@@ -19,7 +19,6 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { Warning as WarningIcon } from "@mui/icons-material";
 import { useState, useRef } from "react";
 export default function Business() {
@@ -33,13 +32,12 @@ export default function Business() {
     setChoose(event.target.value);
   };
   const [open, setOpen] = useState(false);
-  const theme = useTheme();
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const api = "http://localhost:4000/business";
+  const api = "https://embc-api-express.glitch.me/business";
 
   const getCalculateData = async (choose) => {
     if (!choose) return setOpen(true);
@@ -70,7 +68,7 @@ export default function Business() {
         variant="h4"
         sx={{ textAlign: "center", pt: 4, color: "title.color" }}
       >
-        Meter Bill Calculation
+        Business Meter Bill Calculation
       </Typography>
 
       <Dialog
