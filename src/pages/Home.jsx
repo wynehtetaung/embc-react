@@ -1,7 +1,9 @@
 import { Box, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import calculate from "../assets/calculate.png";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <Box>
       <Box
@@ -32,6 +34,7 @@ export default function Home() {
           <Typography sx={{ fontSize: 60, color: "text.color" }}>
             with us
           </Typography>
+
           <Button
             variant="outlined"
             sx={{
@@ -40,6 +43,9 @@ export default function Home() {
               mt: 2,
               p: 1,
               color: "#fff",
+            }}
+            onClick={() => {
+              navigate("/house");
             }}
           >
             Calculate
