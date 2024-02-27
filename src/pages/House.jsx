@@ -18,6 +18,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  CircularProgress,
 } from "@mui/material";
 import { Warning as WarningIcon } from "@mui/icons-material";
 import { useState, useRef } from "react";
@@ -28,7 +29,12 @@ export default function House() {
   const [kyatData, setKyatData] = useState([]);
   const [totalKyats, setTotalKyats] = useState();
   const [totalUnits, setTotalUnits] = useState();
+  const [loading, setLoading] = useState(false);
   const handleChange = (event) => {
+    setUnitData("");
+    setKyatData("");
+    setTotalKyats("");
+    setTotalUnits("");
     setChoose(event.target.value);
   };
   const [open, setOpen] = useState(false);
@@ -40,6 +46,9 @@ export default function House() {
   const api = "https://embc-api-express.glitch.me/home";
 
   const getCalculateData = async (choose) => {
+    if (unitData.length == 0 || kyatData.length == 0) {
+      setLoading(true);
+    }
     if (!choose) return setOpen(true);
     const unit = inputRef.current.value;
     if (!unit) return false;
@@ -51,7 +60,9 @@ export default function House() {
         "Content-Type": "application/json",
       },
     });
+
     const data = await res.json();
+    if (res.ok) setLoading(false);
     const { totalKyats, totalUnits, totalData } = data;
     if (choose === "unit") {
       setUnitData(totalData);
@@ -61,6 +72,7 @@ export default function House() {
     setTotalKyats(totalKyats);
     setTotalUnits(totalUnits);
   };
+
   return (
     <Box>
       <Typography
@@ -137,6 +149,22 @@ export default function House() {
           Calculate
         </Button>
       </Box>
+      {loading && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            mt: 5,
+          }}
+        >
+          <CircularProgress />
+          <Typography variant="h6" color={"#333"}>
+            Please wait for calculation
+          </Typography>
+        </Box>
+      )}
       {choose == "unit" ? (
         unitData.length > 0 ? (
           <Box
