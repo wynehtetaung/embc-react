@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import { Warning as WarningIcon } from "@mui/icons-material";
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 export default function Business() {
   const inputRef = useRef();
   const [choose, setChoose] = useState("");
@@ -30,6 +31,7 @@ export default function Business() {
   const [totalKyats, setTotalKyats] = useState();
   const [totalUnits, setTotalUnits] = useState();
   const [loading, setLoading] = useState(false);
+  const [t, i18n] = useTranslation("translate");
   const handleChange = (event) => {
     setUnitData("");
     setKyatData("");
@@ -46,8 +48,10 @@ export default function Business() {
   const api = "https://embc-api-express.glitch.me/business";
 
   const getCalculateData = async (choose) => {
-    if (unitData.length == 0 || kyatData.length == 0) {
-      setLoading(true);
+    if (choose) {
+      if (unitData.length == 0 || kyatData.length == 0) {
+        setLoading(true);
+      }
     }
     if (!choose) return setOpen(true);
     const unit = inputRef.current.value;
@@ -78,7 +82,7 @@ export default function Business() {
         variant="h4"
         sx={{ textAlign: "center", pt: 4, color: "title.color" }}
       >
-        Business Meter Bill Calculation
+        {t("business.title")}
       </Typography>
 
       <Dialog
@@ -88,14 +92,14 @@ export default function Business() {
       >
         <DialogTitle id="responsive-dialog-title" color={"#ffab00"}>
           <WarningIcon />
-          {" You Need!"}
+          {t("business.dialog_title")}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>Please Choose Type!</DialogContentText>
+          <DialogContentText>{t("business.dialog")}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>
-            Close
+            {t("business.dialog_close")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -112,7 +116,9 @@ export default function Business() {
       >
         <Box sx={{ minWidth: 120, my: 3 }}>
           <FormControl sx={{ width: 150, mr: 1 }}>
-            <InputLabel id="demo-simple-select-label">Choose Type</InputLabel>
+            <InputLabel id="demo-simple-select-label">
+              {t("business.choose_type")}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -120,8 +126,8 @@ export default function Business() {
               label="Age"
               onChange={handleChange}
             >
-              <MenuItem value={"unit"}>Units to Kyats</MenuItem>
-              <MenuItem value={"kyat"}>Kyats to Units</MenuItem>
+              <MenuItem value={"unit"}>{t("business.unit_kyat")}</MenuItem>
+              <MenuItem value={"kyat"}>{t("business.kyat_unit")}</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -129,13 +135,7 @@ export default function Business() {
         <TextField
           autoComplete="off"
           inputRef={inputRef}
-          label={
-            choose === "unit"
-              ? "Enter Your Units"
-              : choose == "kyat"
-              ? "Enter Your Kyat"
-              : "Enter Your "
-          }
+          label={t("business.value")}
           variant="standard"
           sx={{ width: 200, marginRight: 3 }}
         />
@@ -145,7 +145,7 @@ export default function Business() {
           sx={{ py: 2 }}
           onClick={() => getCalculateData(choose)}
         >
-          Calculate
+          {t("business.btn_text")}
         </Button>
       </Box>
       {loading && (
@@ -160,7 +160,7 @@ export default function Business() {
         >
           <CircularProgress />
           <Typography variant="h6" color={"#333"}>
-            Please wait for calculation
+            {t("business.loading_text")}
           </Typography>
         </Box>
       )}
@@ -185,10 +185,14 @@ export default function Business() {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Range</TableCell>
-                    <TableCell sx={{ fontWeight: "bolder" }}>PerUnit</TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
-                      Cost (MMK)
+                      {t("business.range")}
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("business.unit")}
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("business.kyat")}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -201,12 +205,14 @@ export default function Business() {
                     </TableRow>
                   ))}
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Total</TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("business.total")}
+                    </TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
                       {totalUnits}
                     </TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
-                      {totalKyats} MMK
+                      {totalKyats} {t("business.kyat")}
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -237,11 +243,15 @@ export default function Business() {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Range</TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
-                      Kyat (MMK)
+                      {t("business.range")}
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "bolder" }}>PerUnit</TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("business.kyat")}
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("business.unit")}
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -253,7 +263,9 @@ export default function Business() {
                     </TableRow>
                   ))}
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Total</TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("business.total")}
+                    </TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
                       {totalKyats}
                     </TableCell>
@@ -261,7 +273,7 @@ export default function Business() {
                       {totalUnits % 1 == 0
                         ? totalUnits
                         : Number(totalUnits).toFixed(2)}{" "}
-                      Unit
+                      {t("business.units")}
                     </TableCell>
                   </TableRow>
                 </TableBody>

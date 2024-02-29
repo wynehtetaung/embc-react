@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import { Warning as WarningIcon } from "@mui/icons-material";
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 export default function House() {
   const inputRef = useRef();
   const [choose, setChoose] = useState("");
@@ -30,6 +31,7 @@ export default function House() {
   const [totalKyats, setTotalKyats] = useState();
   const [totalUnits, setTotalUnits] = useState();
   const [loading, setLoading] = useState(false);
+  const [t, i18n] = useTranslation("translate");
   const handleChange = (event) => {
     setUnitData("");
     setKyatData("");
@@ -46,8 +48,10 @@ export default function House() {
   const api = "https://embc-api-express.glitch.me/home";
 
   const getCalculateData = async (choose) => {
-    if (unitData.length == 0 || kyatData.length == 0) {
-      setLoading(true);
+    if (choose) {
+      if (unitData.length == 0 || kyatData.length == 0) {
+        setLoading(true);
+      }
     }
     if (!choose) return setOpen(true);
     const unit = inputRef.current.value;
@@ -79,7 +83,7 @@ export default function House() {
         variant="h4"
         sx={{ textAlign: "center", pt: 4, color: "title.color" }}
       >
-        Home Meter Bill Calculation
+        {t("house.title")}
       </Typography>
 
       <Dialog
@@ -88,15 +92,19 @@ export default function House() {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title" color={"#ffab00"}>
-          <WarningIcon />
-          {" You Need!"}
+          <WarningIcon
+            sx={{
+              mr: 1,
+            }}
+          />
+          {t("house.dialog_title")}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>Please Choose Type!</DialogContentText>
+          <DialogContentText>{t("house.dialog")}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>
-            Close
+            {t("house.dialog_close")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -113,16 +121,17 @@ export default function House() {
       >
         <Box sx={{ minWidth: 120, my: 3 }}>
           <FormControl sx={{ width: 150, mr: 1 }}>
-            <InputLabel id="demo-simple-select-label">Choose Type</InputLabel>
+            <InputLabel id="demo-simple-select-label">
+              {t("house.choose_type")}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={choose}
-              label="Age"
               onChange={handleChange}
             >
-              <MenuItem value={"unit"}>Units to Kyats</MenuItem>
-              <MenuItem value={"kyat"}>Kyats to Units</MenuItem>
+              <MenuItem value={"unit"}>{t("house.unit_kyat")}</MenuItem>
+              <MenuItem value={"kyat"}>{t("house.kyat_unit")}</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -130,13 +139,7 @@ export default function House() {
         <TextField
           autoComplete="off"
           inputRef={inputRef}
-          label={
-            choose === "unit"
-              ? "Enter Your Units"
-              : choose == "kyat"
-              ? "Enter Your Kyat"
-              : "Enter Your "
-          }
+          label={t("house.value")}
           variant="standard"
           sx={{ width: 200, marginRight: 3 }}
         />
@@ -146,7 +149,7 @@ export default function House() {
           sx={{ py: 2 }}
           onClick={() => getCalculateData(choose)}
         >
-          Calculate
+          {t("house.btn_text")}
         </Button>
       </Box>
       {loading && (
@@ -161,7 +164,7 @@ export default function House() {
         >
           <CircularProgress />
           <Typography variant="h6" color={"#333"}>
-            Please wait for calculation
+            {t("house.loading_text")}
           </Typography>
         </Box>
       )}
@@ -186,10 +189,14 @@ export default function House() {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Range</TableCell>
-                    <TableCell sx={{ fontWeight: "bolder" }}>PerUnit</TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
-                      Cost (MMK)
+                      {t("house.range")}
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("house.unit")}
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("house.kyat")}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -202,12 +209,14 @@ export default function House() {
                     </TableRow>
                   ))}
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Total</TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("house.total")}
+                    </TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
                       {totalUnits}
                     </TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
-                      {totalKyats} MMK
+                      {totalKyats} {t("house.kyat")}
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -238,11 +247,15 @@ export default function House() {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Range</TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
-                      Kyat (MMK)
+                      {t("house.range")}
                     </TableCell>
-                    <TableCell sx={{ fontWeight: "bolder" }}>PerUnit</TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("house.kyat")}
+                    </TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("house.unit")}
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -254,7 +267,9 @@ export default function House() {
                     </TableRow>
                   ))}
                   <TableRow>
-                    <TableCell sx={{ fontWeight: "bolder" }}>Total</TableCell>
+                    <TableCell sx={{ fontWeight: "bolder" }}>
+                      {t("house.total")}
+                    </TableCell>
                     <TableCell sx={{ fontWeight: "bolder" }}>
                       {totalKyats}
                     </TableCell>
@@ -262,7 +277,7 @@ export default function House() {
                       {totalUnits % 1 == 0
                         ? totalUnits
                         : Number(totalUnits).toFixed(2)}{" "}
-                      Unit
+                      {t("house.units")}
                     </TableCell>
                   </TableRow>
                 </TableBody>

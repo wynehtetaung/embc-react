@@ -1,0 +1,51 @@
+{
+  "header": {
+    "title": "Electric Meter Bill Calculation",
+    "home": "Home",
+    "meter": "Meter",
+    "house_use": "House Use",
+    "business_use": "Business Use",
+    "predict": "Predict",
+    "about": "About"
+  },
+  "body": {
+    "text_one": "Calculate",
+    "text_two": "your meter usage",
+    "text_three": "with us",
+    "btn_text": "Calculate"
+  },
+  "house": {
+    "title": "Home Meter Bill Calculation",
+    "dialog": "Please Choose Type!",
+    "dialog_title": "You Need To",
+    "dialog_close": "Close",
+    "choose_type": "Choose Type",
+    "unit_kyat": "Unit to Kyat",
+    "kyat_unit": "Kyat to Unit",
+    "value": "Enter Your Calculate Value",
+    "btn_text": "Calculate",
+    "loading_text": "Please wait for calculation",
+    "range": "Range",
+    "kyat": "Kyat (MMK)",
+    "unit": "PerUnit",
+    "total": "Total",
+    "units": "Unit"
+  },
+  "business": {
+    "title": "Business Meter Bill Calculation",
+    "dialog": "Please Choose Type!",
+    "dialog_title": "You Need To",
+    "dialog_close": "Close",
+    "choose_type": "Choose Type",
+    "unit_kyat": "Unit to Kyat",
+    "kyat_unit": "Kyat to Unit",
+    "value": "Enter Your Calculate Value",
+    "btn_text": "Calculate",
+    "loading_text": "Please wait for calculation",
+    "range": "Range",
+    "kyat": "Kyat (MMK)",
+    "unit": "PerUnit",
+    "total": "Total",
+    "units": "Unit"
+  }
+}

@@ -1,9 +1,11 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import calculate from "../assets/calculate.png";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [t, i18n] = useTranslation("translate");
   return (
     <Box>
       <Box
@@ -26,13 +28,13 @@ export default function Home() {
           <Typography
             sx={{ fontWeight: "400", fontSize: 80, color: "header.background" }}
           >
-            <span>Calculate</span>
+            <span>{t("body.text_three")}</span>
           </Typography>
           <Typography sx={{ fontSize: 60, color: "text.color" }}>
-            your meter usage{" "}
+            {t("body.text_two")}{" "}
           </Typography>
           <Typography sx={{ fontSize: 60, color: "text.color" }}>
-            with us
+            {t("body.text_one")}
           </Typography>
 
           <Button
@@ -48,7 +50,7 @@ export default function Home() {
               navigate("/house");
             }}
           >
-            Calculate
+            {t("body.btn_text")}
           </Button>
         </Box>
 

@@ -10,11 +10,20 @@ import { useTheme } from "../providers/AppThemeProvider";
 import logo from "../assets/logo.png";
 import myanmar from "../assets/myanmar-flag.svg";
 import english from "../assets/united-states-flag.svg";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
+  const [t, i18n] = useTranslation("translate");
   const navigate = useNavigate();
-  const { openDrawer, setOpenDrawer } = useDrawer();
+  const { setOpenDrawer } = useDrawer();
   const { mode, setMode } = useTheme();
+  const [langIcon, setLangIcon] = useState("en");
+
+  const handleChangeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <AppBar position="static" sx={{ bgcolor: "header.background" }}>
       <Toolbar
@@ -65,15 +74,37 @@ export default function Header() {
             </IconButton>
           )}
 
-          <IconButton>
-            <img
-              src={myanmar}
-              alt="Language Flag"
-              title="myanmar"
-              width={25}
-              height={25}
-            />
-          </IconButton>
+          {langIcon == "en" ? (
+            <IconButton
+              onClick={() => {
+                setLangIcon("my");
+                handleChangeLanguage("my");
+              }}
+            >
+              <img
+                src={myanmar}
+                alt="Language Flag"
+                title="myanmar"
+                width={25}
+                height={25}
+              />
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={() => {
+                setLangIcon("en");
+                handleChangeLanguage("en");
+              }}
+            >
+              <img
+                src={english}
+                alt="Language Flag"
+                title="myanmar"
+                width={25}
+                height={25}
+              />
+            </IconButton>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

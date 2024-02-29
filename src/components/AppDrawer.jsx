@@ -22,12 +22,14 @@ import {
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 import { useDrawer } from "../providers/DrawerProvider";
 import { useNavigate } from "react-router-dom";
 import profile from "../assets/embc-profile.png";
 
 export default function AppDrawer() {
+  const [t, i18n] = useTranslation("translate");
   const navigate = useNavigate();
   const { openDrawer, setOpenDrawer, listDrop, setListDrop } = useDrawer();
   return (
@@ -55,7 +57,7 @@ export default function AppDrawer() {
         >
           <img src={profile} alt="embc profile" />
           <Typography variant="h6" sx={{ color: "text.color", paddingTop: 1 }}>
-            Electric Meter Bill Calculation
+            {t("header.title")}
           </Typography>
         </Box>
         <List>
@@ -70,7 +72,7 @@ export default function AppDrawer() {
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary="Home" />
+              <ListItemText primary={t("header.home")} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -83,7 +85,7 @@ export default function AppDrawer() {
               <ListItemIcon>
                 <ElectricMeterIcon />
               </ListItemIcon>
-              <ListItemText primary="Meter" />
+              <ListItemText primary={t("header.meter")} />
               {listDrop ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </ListItemButton>
           </ListItem>
@@ -101,7 +103,7 @@ export default function AppDrawer() {
                     <ListItemIcon>
                       <BungalowIcon />
                     </ListItemIcon>
-                    <ListItemText primary="House Use" />
+                    <ListItemText primary={t("header.house_use")} />
                   </ListItemButton>
                 </ListItem>
                 <ListItem>
@@ -115,7 +117,7 @@ export default function AppDrawer() {
                     <ListItemIcon>
                       <BusinessIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Business Use" />
+                    <ListItemText primary={t("header.business_use")} />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -126,7 +128,7 @@ export default function AppDrawer() {
               <ListItemIcon>
                 <PredictIcon />
               </ListItemIcon>
-              <ListItemText primary="Predict" />
+              <ListItemText primary={t("header.predict")} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -134,7 +136,7 @@ export default function AppDrawer() {
               <ListItemIcon>
                 <InfoIcon />
               </ListItemIcon>
-              <ListItemText primary="About" />
+              <ListItemText primary={t("header.about")} />
             </ListItemButton>
           </ListItem>
         </List>
