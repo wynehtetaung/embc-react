@@ -1,7 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import calculate from "../assets/calculate.png";
+import calculate from "../assets/OBJECTS.svg";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function Home() {
         <img
           src={calculate}
           alt="Calculate png"
-          style={{ maxWidth: 510, maxHeight: 510 }}
+          style={{ maxWidth: "100%", maxHeight: "100%" }}
         />
       </Box>
     </Box>
